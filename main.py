@@ -17,4 +17,23 @@ if __name__ == '__main__':
     sdes = SDES(key)
     print(sdes.master_key)
 
+
+    # Appliquer P10
+    permuted_key = sdes.p10(sdes.master_key)
+    print("Après P10 :", permuted_key)
+
+    # Séparer en deux moitiés de 5 bits
+    left = permuted_key[:5]
+    right = permuted_key[5:]
+
+    # Appliquer le décalage circulaire à gauche de 1 bit
+    left_shifted = sdes.circularLeftShift(left, 1)
+    right_shifted = sdes.circularLeftShift(right, 1)
+    print("Après décalage circulaire :", left_shifted, right_shifted)
+
+    # Génération des sous-clés
+    subkeys = sdes.generateKeys()
+    print("K1 :", subkeys[0])
+    print("K2 :", subkeys[1])
+
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
