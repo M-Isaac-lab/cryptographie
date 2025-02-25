@@ -4,6 +4,7 @@ class SDES:
         #self.master_key = [False] * 10
         self.master_key = [char == '1' for char in _key]
 
+
     def p10(self, key):
         # Vérifier que la clé est bien de longueur 10
         if len(key) != 10:
@@ -11,7 +12,8 @@ class SDES:
 
         # Permutation P10 : (k3, k5, k2, k7, k4, k10, k1, k9, k8, k6)
         permutation = [2, 4, 1, 6, 3, 9, 0, 8, 7, 5]
-        permuted_key = [key[i] for i in permutation]
+        permuted_key = ''.join(key[i] for i in permutation)
+        #permuted_key = [key[i] for i in permutation] => for the utilisation of true or false
 
         return permuted_key
 
@@ -34,9 +36,9 @@ class SDES:
         return permuted_key
 
     # Fonction de génération des sous-clés
-    def generateKeys(self):
+    def generateKeys(self, key):
         # Appliquer P10 sur la clé principale
-        p10_key = self.p10(self.master_key)
+        p10_key = self.p10(key)
 
         # Séparer en deux moitiés de 5 bits
         left = p10_key[:5]

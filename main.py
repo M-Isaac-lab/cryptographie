@@ -15,12 +15,14 @@ def print_hi(name):
 if __name__ == '__main__':
     key = str(input('Entrer une clee : ')).lower()
     sdes = SDES(key)
-    print(sdes.master_key)
+    #print(sdes.master_key)
 
 
     # Appliquer P10
-    permuted_key = sdes.p10(sdes.master_key)
+    #permuted_key = sdes.p10(sdes.master_key) => for the utilisation of true or false
+    permuted_key = sdes.p10(key)
     print("Après P10 :", permuted_key)
+
 
     # Séparer en deux moitiés de 5 bits
     left = permuted_key[:5]
@@ -32,8 +34,9 @@ if __name__ == '__main__':
     print("Après décalage circulaire :", left_shifted, right_shifted)
 
     # Génération des sous-clés
-    subkeys = sdes.generateKeys()
+    subkeys = sdes.generateKeys(key)
     print("K1 :", subkeys[0])
     print("K2 :", subkeys[1])
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
