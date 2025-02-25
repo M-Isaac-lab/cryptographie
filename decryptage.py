@@ -67,3 +67,20 @@ class SDES:
         # Retourner K1 et K2
         return [k1, k2]
 
+    # Fonction de permutation initiale IP
+    def ip(self, plainText):
+        if len(plainText) != 8:
+            raise ValueError("Le texte clair doit être composé de 8 bits.")
+
+        # Permutation IP : (k2, k6, k3, k1, k4, k8, k5, k7)
+        permutation = [1, 5, 2, 0, 3, 7, 4, 6]
+        return [plainText[i] for i in permutation]
+
+    # Fonction de permutation inverse IP-1
+    def rip(self, permutedText):
+        if len(permutedText) != 8:
+            raise ValueError("Le texte permuté doit être composé de 8 bits.")
+
+        # Permutation inverse IP-1 : (k4, k1, k3, k5, k7, k2, k8, k6)
+        permutation = [3, 0, 2, 4, 6, 1, 7, 5]
+        return [permutedText[i] for i in permutation]

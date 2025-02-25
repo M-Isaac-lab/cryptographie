@@ -13,8 +13,10 @@ def print_hi(name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    message = str(input("Enter your message: ")).upper()
     key = str(input('Entrer une clee : ')).lower()
     sdes = SDES(key)
+
     #print(sdes.master_key)
 
 
@@ -37,6 +39,15 @@ if __name__ == '__main__':
     subkeys = sdes.generateKeys(key)
     print("K1 :", subkeys[0])
     print("K2 :", subkeys[1])
+
+
+    # Appliquer la permutation IP
+    permuted_text = sdes.ip(message)
+    print("Après IP :", permuted_text)
+
+    # Appliquer la permutation inverse IP-1
+    reversed_text = sdes.rip(message)
+    print("Après IP-1 :", reversed_text)
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
