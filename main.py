@@ -13,14 +13,18 @@ def print_hi(name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    message = str(input("Enter your message: ")).upper()
     key = str(input('Entrer une clee : ')).lower()
     sdes = SDES(key)
-    print(sdes.master_key)
+
+    #print(sdes.master_key)
 
 
     # Appliquer P10
-    permuted_key = sdes.p10(sdes.master_key)
+    #permuted_key = sdes.p10(sdes.master_key) => for the utilisation of true or false
+    permuted_key = sdes.p10(key)
     print("Après P10 :", permuted_key)
+
 
     # Séparer en deux moitiés de 5 bits
     left = permuted_key[:5]
@@ -32,8 +36,18 @@ if __name__ == '__main__':
     print("Après décalage circulaire :", left_shifted, right_shifted)
 
     # Génération des sous-clés
-    subkeys = sdes.generateKeys()
+    subkeys = sdes.generateKeys(key)
     print("K1 :", subkeys[0])
     print("K2 :", subkeys[1])
+
+
+    # Appliquer la permutation IP
+    permuted_text = sdes.ip(message)
+    print("Après IP :", permuted_text)
+
+    # Appliquer la permutation inverse IP-1
+    reversed_text = sdes.rip(message)
+    print("Après IP-1 :", reversed_text)
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
